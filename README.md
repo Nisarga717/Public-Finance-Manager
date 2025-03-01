@@ -1,16 +1,46 @@
-# finance_manager
+# FinWise: Your Ultimate Financial Companion  
+[![GitHub license](https://img.shields.io/github/license/[YourUsername]/[RepoName])](https://github.com/[YourUsername]/[RepoName]/blob/main/LICENSE)  
+[![Flutter](https://img.shields.io/badge/Flutter-3.13-blue?logo=flutter)](https://flutter.dev)  
+[![Firebase](https://img.shields.io/badge/Firebase-Emulator-orange?logo=firebase)](https://firebase.google.com)  
 
-A new Flutter project.
+**Take control of your money with intuitive budgeting, bill tracking, and beautiful visualizations.**  
+FinWise simplifies personal finance management by turning complex expenses into actionable insights. Track spending, plan budgets, and never miss a subscription payment again!  
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## ✨ Key Features  
+- 📊 **Interactive Visual Reports**: Pie charts, bar graphs, and trend lines to break down your spending habits.  
+- 💡 **Smart Budget Planning**: Set monthly budgets for categories (groceries, entertainment) and get alerts when limits are near.  
+- 🔔 **Bill & Subscription Tracker**: Never miss a payment! Get reminders for recurring bills (Netflix, utilities, etc.).  
+- 📱 **Cross-Platform Sync**: Access your data seamlessly on iOS, Android, and web.  
+- 🔒 **Offline-First**: Local data storage ensures your finances are always accessible, even without internet.  
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🛠️ Tech Stack  
+- **Frontend**: Flutter (Dart)  
+- **Backend**: Firebase (Auth, Firestore, Cloud Functions)  
+- **Local Database**: Hive  
+- **State Management**: Provider/Riverpod  
+- **Charts**: FL Chart/Syncfusion  
+- **Testing**: Flutter Test, Mockito  
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 📸 Screenshots  
+| Dashboard | Expense Tracking | Budget Planner |  
+|-----------|------------------|----------------|  
+| ![Dashboard](screenshots/dashboard.png) | ![Expense Tracking](screenshots/expenses.png) | ![Budget Planner](screenshots/budget.png) |  
+
+| Subscriptions | Reports | Settings |  
+|---------------|---------|----------|  
+| ![Subscriptions](screenshots/subscriptions.png) | ![Reports](screenshots/reports.png) | ![Settings](screenshots/settings.png) |  
+
+*(Replace `dashboard.png`, `expenses.png`, etc., with your actual screenshot filenames)*  
+
+---
+
+## 🚀 Installation  
+1. **Clone the repository**:  
+   ```bash  
+   git clone https://github.com/[YourUsername]/[RepoName].git  
