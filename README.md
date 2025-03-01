@@ -30,11 +30,11 @@ FinWise simplifies personal finance management by turning complex expenses into 
 ## 📸 Screenshots  
 | Dashboard | Expense Tracking | Budget Planner |  
 |-----------|------------------|----------------|  
-| ![Dashboard](screenshots/dashboard.png) | ![Expense Tracking](screenshots/expenses.png) | ![Budget Planner](screenshots/budget.png) |  
+| ![Dashboard](assets/home1.png) | ![Expense Tracking](assets/home2.png) | ![Budget Planner](assets/screen2.png) |  
 
-| Subscriptions | Reports | Settings |  
+| Profile | Login | Signup |  
 |---------------|---------|----------|  
-| ![Subscriptions](screenshots/subscriptions.png) | ![Reports](screenshots/reports.png) | ![Settings](screenshots/settings.png) |  
+| ![Profile](assets/screen3.png) | ![Login](assets/login.png) | ![Signup](assets/signup.png) |  
 
 *(Replace `dashboard.png`, `expenses.png`, etc., with your actual screenshot filenames)*  
 
