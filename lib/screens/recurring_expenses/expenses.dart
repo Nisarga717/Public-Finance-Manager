@@ -5,7 +5,8 @@ import 'package:hive/hive.dart';
 import 'expense_sheet.dart';
 import 'expense_model.dart';
 
-final recurringExpensesProvider = StateNotifierProvider<RecurringExpensesNotifier, List<RecurringExpense>>(
+final recurringExpensesProvider =
+    StateNotifierProvider<RecurringExpensesNotifier, List<RecurringExpense>>(
   (ref) => RecurringExpensesNotifier(),
 );
 
@@ -54,7 +55,9 @@ class RecurringExpenses extends ConsumerWidget {
               motion: ScrollMotion(),
               children: [
                 SlidableAction(
-                  onPressed: (_) => ref.read(recurringExpensesProvider.notifier).removeExpense(index),
+                  onPressed: (_) => ref
+                      .read(recurringExpensesProvider.notifier)
+                      .removeExpense(index),
                   backgroundColor: Colors.red,
                   foregroundColor: Colors.white,
                   icon: Icons.delete,
@@ -68,7 +71,9 @@ class RecurringExpenses extends ConsumerWidget {
                 subtitle: Text('\$${expense.amount} - ${expense.frequency}'),
                 trailing: Switch(
                   value: expense.isActive,
-                  onChanged: (_) => ref.read(recurringExpensesProvider.notifier).toggleExpense(index),
+                  onChanged: (_) => ref
+                      .read(recurringExpensesProvider.notifier)
+                      .toggleExpense(index),
                 ),
               ),
             ),

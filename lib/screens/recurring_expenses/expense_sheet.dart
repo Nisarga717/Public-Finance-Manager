@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:hive/hive.dart';
 import 'expense_model.dart';
-import 'expenses.dart';
 
-class AddRecurringExpenseSheet extends ConsumerStatefulWidget {
+class AddRecurringExpenseSheet extends StatefulWidget {
   @override
-  _AddRecurringExpenseSheetState createState() => _AddRecurringExpenseSheetState();
+  _AddRecurringExpenseSheetState createState() =>
+      _AddRecurringExpenseSheetState();
 }
 
-class _AddRecurringExpenseSheetState extends ConsumerState<AddRecurringExpenseSheet> {
+class _AddRecurringExpenseSheetState extends State<AddRecurringExpenseSheet> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
@@ -18,7 +18,7 @@ class _AddRecurringExpenseSheetState extends ConsumerState<AddRecurringExpenseSh
   DateTime _selectedDate = DateTime.now();
   bool _isImportant = false;
 
-  void _saveExpense() {
+  void _saveExpense() async {
     if (_formKey.currentState!.validate()) {
       final expense = RecurringExpense(
         title: _titleController.text,
@@ -28,7 +28,10 @@ class _AddRecurringExpenseSheetState extends ConsumerState<AddRecurringExpenseSh
         startDate: _selectedDate,
         isImportant: _isImportant,
       );
-      ref.read(recurringExpensesProvider.notifier).addExpense(expense);
+
+      final box = await Hive.openBox<RecurringExpense>('recurring_expenses');
+      await box.add(expense); // Save to Hive
+
       Navigator.pop(context);
     }
   }
@@ -55,13 +58,17 @@ class _AddRecurringExpenseSheetState extends ConsumerState<AddRecurringExpenseSh
             ),
             DropdownButtonFormField(
               value: _selectedCategory,
-              items: ['Groceries', 'Rent', 'Utilities'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
+              items: ['Groceries', 'Rent', 'Utilities']
+                  .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                  .toList(),
               onChanged: (val) => setState(() => _selectedCategory = val!),
               decoration: InputDecoration(labelText: 'Category'),
             ),
             DropdownButtonFormField(
               value: _selectedFrequency,
-              items: ['Daily', 'Weekly', 'Monthly', 'Yearly'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
+              items: ['Daily', 'Weekly', 'Monthly', 'Yearly']
+                  .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                  .toList(),
               onChanged: (val) => setState(() => _selectedFrequency = val!),
               decoration: InputDecoration(labelText: 'Frequency'),
             ),

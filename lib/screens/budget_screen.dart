@@ -4,16 +4,18 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BudgetScreen extends StatelessWidget {
+class BudgetScreen extends StatefulWidget {
+  @override
+  _BudgetScreenState createState() => _BudgetScreenState();
+}
+
+class _BudgetScreenState extends State<BudgetScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            Colors.black,
-            Colors.black87,
-          ],
+          colors: [Colors.black, Colors.black87],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -42,6 +44,7 @@ class BudgetScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // 💰 Balance Card
               Container(
                 decoration: BoxDecoration(
                   color: Colors.deepPurple,
@@ -58,24 +61,19 @@ class BudgetScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Balance",
-                      style: GoogleFonts.poppins(
-                        color: Colors.white70,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    Text("Balance",
+                        style: GoogleFonts.poppins(
+                            color: Colors.white70,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500)),
                     SizedBox(height: 8),
-                    Text(
-                      "\$367.30",
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 34,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    Text("\$367.30",
+                        style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 34,
+                            fontWeight: FontWeight.bold)),
                     SizedBox(height: 20),
+                    // 📊 Bar Chart
                     SizedBox(
                       height: 200,
                       child: BarChart(
@@ -104,10 +102,9 @@ class BudgetScreen extends StatelessWidget {
                                   return Padding(
                                     padding: EdgeInsets.only(top: 8),
                                     child: Text(
-                                      titles[value.toInt() % titles.length],
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white, fontSize: 12),
-                                    ),
+                                        titles[value.toInt() % titles.length],
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.white, fontSize: 12)),
                                   );
                                 },
                               ),
@@ -115,73 +112,24 @@ class BudgetScreen extends StatelessWidget {
                           ),
                           borderData: FlBorderData(show: false),
                           barGroups: [
-                            BarChartGroupData(x: 0, barRods: [
-                              BarChartRodData(
-                                toY: 400,
-                                gradient: LinearGradient(
-                                  colors: [Colors.purple, Colors.blue],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
-                                width: 16,
-                              )
-                            ]),
-                            BarChartGroupData(x: 1, barRods: [
-                              BarChartRodData(
-                                toY: 700,
-                                gradient: LinearGradient(
-                                  colors: [Colors.orange, Colors.red],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
-                                width: 16,
-                              )
-                            ]),
-                            BarChartGroupData(x: 2, barRods: [
-                              BarChartRodData(
-                                toY: 500,
-                                gradient: LinearGradient(
-                                  colors: [Colors.green, Colors.teal],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
-                                width: 16,
-                                borderRadius: BorderRadius.circular(8),
-                              )
-                            ]),
-                            BarChartGroupData(x: 3, barRods: [
-                              BarChartRodData(
-                                toY: 900,
-                                gradient: LinearGradient(
-                                  colors: [Colors.pink, Colors.purpleAccent],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
-                                width: 16,
-                              )
-                            ]),
-                            BarChartGroupData(x: 4, barRods: [
-                              BarChartRodData(
-                                toY: 600,
-                                gradient: LinearGradient(
-                                  colors: [Colors.yellow, Colors.orange],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
-                                width: 16,
-                              )
-                            ]),
-                            BarChartGroupData(x: 5, barRods: [
-                              BarChartRodData(
-                                toY: 300,
-                                gradient: LinearGradient(
-                                  colors: [Colors.lightBlue, Colors.blueAccent],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
-                                width: 16,
-                              )
-                            ]),
+                            for (int i = 0; i < 6; i++)
+                              BarChartGroupData(x: i, barRods: [
+                                BarChartRodData(
+                                  toY: (400 + i * 100).toDouble(),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.primaries[
+                                          i % Colors.primaries.length],
+                                      Colors.primaries[
+                                          (i + 2) % Colors.primaries.length]
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                  ),
+                                  width: 16,
+                                  borderRadius: BorderRadius.circular(8),
+                                )
+                              ]),
                           ],
                         ),
                       ),
@@ -190,6 +138,7 @@ class BudgetScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
+              // 🔄 Recurring Expenses + Investment Suggestions
               Row(
                 children: [
                   Expanded(
@@ -243,8 +192,67 @@ class BudgetScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: 20),
+              // ➕ Add Expense Section
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.teal, Colors.blueAccent],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                child: Row(
+                  children: [
+                    Icon(Icons.add_circle, color: Colors.white, size: 36),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        "Add a new expense",
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // Open add expense modal
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: Icon(Icons.arrow_forward, color: Colors.blue),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
+        ),
+        // ✨ Floating Action Button
+        floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: Colors.deepPurple,
+          icon: Icon(Icons.add, color: Colors.white),
+          label: Text("New Expense",
+              style: GoogleFonts.poppins(color: Colors.white)),
+          onPressed: () {
+            // Open add expense modal
+          },
         ),
       ),
     );
