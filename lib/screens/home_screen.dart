@@ -10,6 +10,7 @@ import '../auth/auth_service.dart';
 import 'budget_screen.dart';
 import 'profile_screen.dart';
 import 'horizon.dart';
+import 'bills.dart';
 
 void main() {
   // Initialize Flutter bindings
@@ -763,7 +764,7 @@ class GlassBottomBar extends StatelessWidget {
                 case 3:
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ProfileScreen()),
+                    MaterialPageRoute(builder: (context) => BillsPage()),
                   );
                   break;
               }
@@ -779,8 +780,8 @@ class GlassBottomBar extends StatelessWidget {
             tabs: [
               Tab(icon: FaIcon(FontAwesomeIcons.house)),
               Tab(icon: FaIcon(FontAwesomeIcons.chartPie)),
+              Tab(icon: FaIcon(FontAwesomeIcons.bookOpen)),
               Tab(icon: FaIcon(FontAwesomeIcons.wallet)),
-              Tab(icon: FaIcon(FontAwesomeIcons.user)),
             ],
           ),
         ),
