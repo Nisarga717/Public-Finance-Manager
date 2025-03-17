@@ -44,8 +44,10 @@ dependencies:
   intl: ^0.18.1                  # Date formatting for expense scheduling
   flutter_slidable: ^3.0.1       # Swipe-to-delete functionality
   flutter_emoji: ^2.3.0          # Emoji picker for expense title
-  flutter_confetti: 0.4.0
-
+  
+  
+  web3dart: ^2.5.0
+  confetti: ^0.8.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -74,7 +76,9 @@ dev_dependencies:
   carousel_slider: ^4.1.1  # For slider functionality
   hive_generator: ^2.0.1         # Generates Hive adapter for recurring expense model
   build_runner: ^2.4.6  
-
+  flutter_vibrate: ^1.3.0
+  alan_voice: ^3.1.0
+  animated_background: ^2.0.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

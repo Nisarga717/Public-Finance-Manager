@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../auth/auth_service.dart';
 import 'budget_screen.dart';
 import 'profile_screen.dart';
+import 'horizon.dart';
 
 void main() {
   // Initialize Flutter bindings
@@ -756,7 +757,7 @@ class GlassBottomBar extends StatelessWidget {
                 case 2:
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => BudgetScreen()),
+                    MaterialPageRoute(builder: (context) => HorizonScreen()),
                   );
                   break;
                 case 3:
