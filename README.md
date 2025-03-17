@@ -36,6 +36,10 @@ FinWise simplifies personal finance management by turning complex expenses into 
 |---------------|---------|----------|  
 | ![Landing](assets/landing.png) | ![Login](assets/login.png) | ![Signup](assets/signup.png) |  
 
+| Horizon | Bills | Profile |  
+|---------------|---------|----------|  
+| ![Horizon](assets/horizon.png) | ![bills](assets/bills.png) | ![profile](assets/profile.png) |  
+
 *(Replace `dashboard.png`, `expenses.png`, etc., with your actual screenshot filenames)*  
 
 ---
