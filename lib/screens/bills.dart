@@ -30,6 +30,12 @@ class _BillsPageState extends State<BillsPage> {
   DateTime _selectedDate = DateTime.now();
   bool _isSubscription = false;
 
+  // Primary color constant for consistency
+  final Color _primaryColor = const Color(0xFF6750A4);
+  final Color _secondaryColor = const Color(0xFFEADDFF);
+  final Color _accentColor =
+      const Color(0xFFFF7043); // Accent color for buttons
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -62,10 +68,10 @@ class _BillsPageState extends State<BillsPage> {
       lastDate: DateTime(2030),
       builder: (context, child) => Theme(
         data: Theme.of(context).copyWith(
-          colorScheme: const ColorScheme.light(
-            primary: Color(0xFF6750A4),
+          colorScheme: ColorScheme.light(
+            primary: _primaryColor,
             onPrimary: Colors.white,
-            onSurface: Color(0xFF6750A4),
+            onSurface: _primaryColor,
           ),
         ),
         child: child!,
@@ -81,8 +87,8 @@ class _BillsPageState extends State<BillsPage> {
       appBar: AppBar(
         title: Text('Bills & Subscriptions',
             style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
-        backgroundColor: const Color(0xFF6750A4),
-        elevation: 0,
+        backgroundColor: _primaryColor,
+        elevation: 2, // Added elevation for depth
         centerTitle: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
@@ -93,13 +99,38 @@ class _BillsPageState extends State<BillsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Your Finances',
-              style: GoogleFonts.poppins(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                color: const Color(0xFF1D1B20),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Your Finances',
+                  style: GoogleFonts.poppins(
+                    fontSize: 24, // Increased font size
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF1D1B20),
+                  ),
+                ),
+                // Add a more visible month filter button
+                ElevatedButton.icon(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: _secondaryColor,
+                    foregroundColor: _primaryColor,
+                    elevation: 3,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                  ),
+                  icon: const Icon(Icons.filter_list, size: 18),
+                  label: Text(
+                    'Filter',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             Expanded(
@@ -108,12 +139,33 @@ class _BillsPageState extends State<BillsPage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _showAddBillDialog(context),
-        backgroundColor: const Color(0xFF6750A4),
-        icon: const Icon(Icons.add),
-        label: Text('Add Bill',
-            style: GoogleFonts.poppins(fontWeight: FontWeight.w500)),
+      floatingActionButton: Container(
+        height: 60, // Increased height
+        width: 180, // Wider button
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: _accentColor.withOpacity(0.4),
+              blurRadius: 15,
+              offset: const Offset(0, 4),
+              spreadRadius: 2,
+            ),
+          ],
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: FloatingActionButton.extended(
+          onPressed: () => _showAddBillDialog(context),
+          backgroundColor: _accentColor,
+          foregroundColor: Colors.white,
+          icon: const Icon(Icons.add, size: 28),
+          label: Text('ADD BILL',
+              style: GoogleFonts.poppins(
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+                letterSpacing: 0.5,
+              )),
+          elevation: 0,
+        ),
       ),
     );
   }
@@ -124,29 +176,71 @@ class _BillsPageState extends State<BillsPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 120,
-            height: 120,
+            width: 140,
+            height: 140,
             decoration: BoxDecoration(
-              color: const Color(0xFFEADDFF),
-              borderRadius: BorderRadius.circular(60),
+              color: _secondaryColor,
+              borderRadius: BorderRadius.circular(70),
+              boxShadow: [
+                BoxShadow(
+                  color: _primaryColor.withOpacity(0.2),
+                  blurRadius: 15,
+                  offset: const Offset(0, 5),
+                ),
+              ],
             ),
-            child: const Icon(Icons.receipt_long,
-                size: 60, color: Color(0xFF6750A4)),
+            child: Icon(Icons.receipt_long, size: 70, color: _primaryColor),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 28),
           Text(
             'No bills or subscriptions yet',
             style: GoogleFonts.poppins(
-              fontSize: 18,
+              fontSize: 20,
               fontWeight: FontWeight.w600,
               color: const Color(0xFF49454F),
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           Text(
-            'Add your first one with the + button',
+            'Add your first one with the button below',
             style: GoogleFonts.poppins(
-                fontSize: 14, color: const Color(0xFF79747E)),
+                fontSize: 16, color: const Color(0xFF79747E)),
+          ),
+          const SizedBox(height: 40),
+          // Much more visible "Add First Bill" button in empty state
+          Container(
+            width: 260,
+            height: 60,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: _accentColor.withOpacity(0.4),
+                  blurRadius: 15,
+                  offset: const Offset(0, 4),
+                  spreadRadius: 2,
+                ),
+              ],
+            ),
+            child: ElevatedButton.icon(
+              onPressed: () => _showAddBillDialog(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _accentColor,
+                foregroundColor: Colors.white,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+              ),
+              icon: const Icon(Icons.add, size: 28),
+              label: Text(
+                'Add Your First Bill',
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                ),
+              ),
+            ),
           ),
         ],
       ),
@@ -161,6 +255,9 @@ class _BillsPageState extends State<BillsPage> {
         final bill = _bills[index];
         return _BillCard(
           bill: bill,
+          primaryColor: _primaryColor,
+          secondaryColor: _secondaryColor,
+          accentColor: _accentColor,
           onDelete: () => setState(() => _bills.removeAt(index)),
         );
       },
@@ -173,10 +270,11 @@ class _BillsPageState extends State<BillsPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           title: Text(
             'Add New Bill',
-            style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
+            style:
+                GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 20),
             textAlign: TextAlign.center,
           ),
           content: Form(
@@ -205,14 +303,59 @@ class _BillsPageState extends State<BillsPage> {
                   },
                 ),
                 const SizedBox(height: 16),
-                InkWell(
-                  onTap: () => _selectDate(context),
-                  child: InputDecorator(
-                    decoration: _getInputDecoration(
-                        label: 'Due Date', icon: Icons.calendar_today),
-                    child: Text(
-                        DateFormat('MMM dd, yyyy').format(_selectedDate),
-                        style: GoogleFonts.poppins()),
+                // Make date selector appear more button-like
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: const Color(0xFFE8DEF8)),
+                  ),
+                  child: Material(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    child: InkWell(
+                      onTap: () => _selectDate(context),
+                      borderRadius: BorderRadius.circular(12),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 16, horizontal: 12),
+                        child: Row(
+                          children: [
+                            Icon(Icons.calendar_today, color: _primaryColor),
+                            const SizedBox(width: 12),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Due Date',
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.grey[600],
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                Text(
+                                  DateFormat('MMM dd, yyyy')
+                                      .format(_selectedDate),
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Spacer(),
+                            Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                color: _secondaryColor,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Icon(Icons.edit_calendar,
+                                  size: 16, color: _primaryColor),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -229,7 +372,7 @@ class _BillsPageState extends State<BillsPage> {
                     ),
                     value: _isSubscription,
                     activeColor: Colors.white,
-                    activeTrackColor: const Color(0xFF6750A4),
+                    activeTrackColor: _accentColor,
                     inactiveTrackColor: Colors.grey[300],
                     onChanged: (bool value) =>
                         setState(() => _isSubscription = value),
@@ -239,25 +382,52 @@ class _BillsPageState extends State<BillsPage> {
             ),
           ),
           actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text('CANCEL',
-                  style: GoogleFonts.poppins(color: const Color(0xFF6750A4))),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  _addBill();
-                  Navigator.of(context).pop();
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF6750A4),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24)),
-              ),
-              child: Text('ADD',
-                  style: GoogleFonts.poppins(fontWeight: FontWeight.w500)),
+            // Make buttons in dialog more visible
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.grey[200],
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                    ),
+                    child: Text('CANCEL',
+                        style: GoogleFonts.poppins(
+                            color: Colors.grey[700],
+                            fontWeight: FontWeight.w600)),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _addBill();
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _accentColor,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      elevation: 2,
+                    ),
+                    child: Text('ADD',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        )),
+                  ),
+                ),
+              ],
             ),
           ],
         );
@@ -285,16 +455,16 @@ class _BillsPageState extends State<BillsPage> {
       {required String label, required IconData icon}) {
     return InputDecoration(
       labelText: label,
-      labelStyle: GoogleFonts.poppins(color: const Color(0xFF6750A4)),
+      labelStyle: GoogleFonts.poppins(color: _primaryColor),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(color: Color(0xFFE8DEF8)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Color(0xFF6750A4), width: 2.0),
+        borderSide: BorderSide(color: _primaryColor, width: 2.0),
       ),
-      prefixIcon: Icon(icon, color: const Color(0xFF6750A4)),
+      prefixIcon: Icon(icon, color: _primaryColor),
       filled: true,
       fillColor: Colors.white,
     );
@@ -303,10 +473,19 @@ class _BillsPageState extends State<BillsPage> {
 
 class _BillCard extends StatelessWidget {
   final Bill bill;
+  final Color primaryColor;
+  final Color secondaryColor;
+  final Color accentColor;
   final VoidCallback onDelete;
 
-  const _BillCard({Key? key, required this.bill, required this.onDelete})
-      : super(key: key);
+  const _BillCard({
+    Key? key,
+    required this.bill,
+    required this.onDelete,
+    required this.primaryColor,
+    required this.secondaryColor,
+    required this.accentColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -320,77 +499,144 @@ class _BillCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 12,
+            offset: const Offset(0, 3),
           ),
         ],
       ),
-      child: ListTile(
-        contentPadding: const EdgeInsets.all(16),
-        leading: Container(
-          width: 52,
-          height: 52,
-          decoration: BoxDecoration(
-            color: bill.isSubscription
-                ? const Color(0xFFEADDFF)
-                : const Color(0xFFE8DEF8),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Icon(bill.isSubscription ? Icons.repeat : Icons.receipt,
-              color: const Color(0xFF6750A4), size: 26),
-        ),
-        title: Text(
-          bill.name,
-          style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w600, color: const Color(0xFF1D1B20)),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
           children: [
-            const SizedBox(height: 4),
             Row(
               children: [
-                Icon(Icons.calendar_today,
-                    size: 14, color: isPastDue ? Colors.red : Colors.grey),
-                const SizedBox(width: 4),
-                Text(
-                  dateString,
-                  style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    color: isPastDue ? Colors.red : Colors.grey[700],
-                    fontWeight: isPastDue ? FontWeight.w600 : FontWeight.normal,
+                Container(
+                  width: 56,
+                  height: 56,
+                  decoration: BoxDecoration(
+                    color: bill.isSubscription
+                        ? secondaryColor
+                        : const Color(0xFFE8DEF8),
+                    borderRadius: BorderRadius.circular(14),
+                    boxShadow: [
+                      BoxShadow(
+                        color: primaryColor.withOpacity(0.15),
+                        blurRadius: 5,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Icon(
+                      bill.isSubscription ? Icons.repeat : Icons.receipt,
+                      color: primaryColor,
+                      size: 28),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        bill.name,
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xFF1D1B20),
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Icon(Icons.calendar_today,
+                              size: 14,
+                              color: isPastDue ? Colors.red : Colors.grey),
+                          const SizedBox(width: 4),
+                          Text(
+                            dateString,
+                            style: GoogleFonts.poppins(
+                              fontSize: 13,
+                              color: isPastDue ? Colors.red : Colors.grey[700],
+                              fontWeight: isPastDue
+                                  ? FontWeight.w600
+                                  : FontWeight.normal,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: primaryColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    '\$${bill.amount.toStringAsFixed(2)}',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      color: primaryColor,
+                    ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 2),
-            Text(
-              bill.isSubscription
-                  ? 'Recurring Subscription'
-                  : 'One-time Payment',
-              style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey[700]),
-            ),
-          ],
-        ),
-        trailing: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              '\$${bill.amount.toStringAsFixed(2)}',
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
-                color: const Color(0xFF6750A4),
-              ),
-            ),
-            IconButton(
-              icon:
-                  const Icon(Icons.delete_outline, color: Colors.red, size: 20),
-              onPressed: onDelete,
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: bill.isSubscription
+                          ? secondaryColor.withOpacity(0.3)
+                          : Colors.grey[100],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      bill.isSubscription
+                          ? 'Recurring Subscription'
+                          : 'One-time Payment',
+                      style: GoogleFonts.poppins(
+                        fontSize: 13,
+                        color: bill.isSubscription
+                            ? primaryColor
+                            : Colors.grey[700],
+                        fontWeight: FontWeight.w500,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                // More visible delete button
+                ElevatedButton.icon(
+                  onPressed: onDelete,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red[50],
+                    foregroundColor: Colors.red,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  ),
+                  icon: const Icon(Icons.delete_outline, size: 20),
+                  label: Text(
+                    'Remove',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 13,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
